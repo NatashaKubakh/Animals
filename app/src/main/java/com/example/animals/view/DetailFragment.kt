@@ -24,8 +24,8 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.buttonList.setOnClickListener {
+      /*  binding.buttonList.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.actionList)
-        }
+        }*/
     }
 }
