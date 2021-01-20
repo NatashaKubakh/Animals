@@ -27,7 +27,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
         animals.value = arrayListOf(a1, a2, a3, a4, a5, a6)
         loadError.value = false
-        loading.value = true
+        loading.value = false
     }
 
 }

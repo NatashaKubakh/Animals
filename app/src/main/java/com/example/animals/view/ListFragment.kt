@@ -65,8 +65,14 @@ class ListFragment : Fragment() {
         binding.animalsList.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = listAdapter
+
+            binding.refreshLayout.setOnRefreshListener {
+                binding.animalsList.visibility = View.GONE
+                binding.tvListError.visibility = View.GONE
+                binding.loadingView.visibility = View.VISIBLE
+                viewModel.refresh()
+                binding.refreshLayout.isRefreshing = false
+            }
         }
-
-
     }
 }
