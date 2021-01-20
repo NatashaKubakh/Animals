@@ -6,20 +6,13 @@ import android.content.Context
 class BasicApp : Application() {
 
     companion object {
-        private var app: BasicApp? = null
-        var context: Context? = null
-
-        fun getInstance(): BasicApp {
-            app?.let { return it }
-            val application = BasicApp()
-            app = application
-            return application
-        }
+        lateinit var app: BasicApp
+        lateinit var context: Context
     }
 
     override fun onCreate() {
         super.onCreate()
-        context = applicationContext
-        app = BasicApp()
+        app = this
+        context = app.applicationContext
     }
 }
