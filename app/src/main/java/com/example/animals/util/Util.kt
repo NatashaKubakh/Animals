@@ -2,6 +2,7 @@ package com.example.animals.util
 
 import android.content.Context
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -23,8 +24,16 @@ fun ImageView.loadImage(uri: String?, progressDrawable: CircularProgressDrawable
     Glide.with(context)
         .setDefaultRequestOptions(options)
         .load(uri)
-        .apply(RequestOptions()
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .skipMemoryCache(true))
+        .apply(
+            RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+        )
         .into(this)
+}
+
+@BindingAdapter("android:ImageUrl")
+fun loadImage(view: ImageView, url: String?) {
+    view.loadImage(url, getProgressDrawable(view.context))
+
 }

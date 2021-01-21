@@ -1,8 +1,11 @@
 package com.example.animals.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animals.R
 import com.example.animals.databinding.ItemAnimalBinding
@@ -11,7 +14,7 @@ import com.example.animals.util.getProgressDrawable
 import com.example.animals.util.loadImage
 
 class AnimalListAdapter(private val animalList: ArrayList<Animal>) :
-    RecyclerView.Adapter<AnimalListAdapter.AnimalViewHolder>() {
+    RecyclerView.Adapter<AnimalListAdapter.AnimalViewHolder>(), AnimalClickListener {
     private lateinit var binding: ItemAnimalBinding
 
     fun updateAnimalList(newAnimalList: List<Animal>) {
@@ -29,9 +32,28 @@ class AnimalListAdapter(private val animalList: ArrayList<Animal>) :
     }
 
     override fun onBindViewHolder(holder: AnimalViewHolder, position: Int) {
-        binding.animalName.text = animalList[position].name
-        binding.animalImage.loadImage(animalList[position].imageUrl,
-            getProgressDrawable(holder.itemView.context))
+        binding.animal = animalList[position]
+        binding.listener = this
+        /* binding.animalImage.loadImage(
+             animalList[position].imageUrl,
+             getProgressDrawable(holder.itemView.context)*/
+
+        /* binding.animalLayout.setOnClickListener {
+             val action = ListFragmentDirections.actionGoToDetail(animalList[position])
+             val navigation = Navigation.findNavController(binding.animalLayout)
+             navigation?.let { it.navigate(action) }
+
+         }*/
+    }
+
+    override fun onClick(v: View) {
+        for (animal in animalList) {
+            if (v.tag == animal.name) {
+                val action = ListFragmentDirections.actionGoToDetail(animal)
+                val navigation = Navigation.findNavController(v)
+                navigation?.let { it.navigate(action) }
+            }
+        }
     }
 
     override fun getItemCount() = animalList.size

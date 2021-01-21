@@ -1,55 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <data>
+
+        <variable
+            name="animal"
+            type="com.example.animals.model.Animal" />
+
+        <variable
+            name="palette"
+            type="com.example.animals.model.AnimalPalette" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@{palette.color}"
         android:orientation="vertical"
         tools:context=".view.DetailFragment">
 
         <ImageView
-            android:id="@+id/animalImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ImageUrl="@{animal.imageUrl}"
             android:minHeight="200dp"
             android:scaleType="center" />
 
         <TextView
-            android:id="@+id/animalName"
             style="@style/Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="8dp"
-            android:text="@string/animal_name" />
+            android:text="@{animal.name}" />
 
         <TextView
-            android:id="@+id/animalLocation"
             style="@style/Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="4dp"
-            android:text="@string/animal_location" />
+            android:text="@{animal.location}" />
 
         <TextView
-            android:id="@+id/animalLifespan"
             style="@style/Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="4dp"
-            android:text="@string/animal_lifespan" />
+            android:text="@{animal.lifeSpan}" />
 
         <TextView
-            android:id="@+id/animalDiet"
             style="@style/Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="4dp"
-            android:text="@string/animal_diet" />
+            android:text="@{animal.diet}" />
 
         <!--
                 <TextView
