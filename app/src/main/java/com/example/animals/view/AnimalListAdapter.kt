@@ -32,8 +32,8 @@ class AnimalListAdapter(private val animalList: ArrayList<Animal>) :
     }
 
     override fun onBindViewHolder(holder: AnimalViewHolder, position: Int) {
-        binding.animal = animalList[position]
-        binding.listener = this
+        holder.binding.animal = animalList[position]
+        holder.binding.listener = this
         /* binding.animalImage.loadImage(
              animalList[position].imageUrl,
              getProgressDrawable(holder.itemView.context)*/
@@ -44,6 +44,7 @@ class AnimalListAdapter(private val animalList: ArrayList<Animal>) :
              navigation?.let { it.navigate(action) }
 
          }*/
+        holder.binding.executePendingBindings()
     }
 
     override fun onClick(v: View) {
@@ -59,5 +60,5 @@ class AnimalListAdapter(private val animalList: ArrayList<Animal>) :
     override fun getItemCount() = animalList.size
 
 
-    inner class AnimalViewHolder(binding: ItemAnimalBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class AnimalViewHolder(val binding: ItemAnimalBinding) : RecyclerView.ViewHolder(binding.root)
 }
