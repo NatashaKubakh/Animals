@@ -1,7 +1,6 @@
 package com.example.animals.viewModel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.animals.di.AppModule
@@ -22,6 +21,10 @@ import javax.inject.Inject
 
 class ListViewModel(application: Application) : AndroidViewModel(application) {
 
+    constructor(application: Application, test: Boolean = true) : this(application) {
+        injected = true
+    }
+
     val animals by lazy {
         MutableLiveData<List<Animal>>()
     }
@@ -36,17 +39,21 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     @Inject
     @field:TypeOfContext(CONTEXT_APP)
     lateinit var prefs: SharedPreferencesHelper
+
     private var invalidApiKey = false
+    private var injected = false
 
-    init {
-        DaggerViewModelComponent.builder()
-            .appModule(AppModule(application))
-            .build()
-            .inject(this)
-
+    fun inject() {
+        if (!injected) {
+            DaggerViewModelComponent.builder()
+                .appModule(AppModule(getApplication()))
+                .build()
+                .inject(this)
+        }
     }
 
     fun refresh() {
+        inject()
         loading.value = true
         invalidApiKey = false
         val key = prefs.getApiKey()
@@ -58,6 +65,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun hardRefresh() {
+        inject()
         loading.value = true
         getKey()
     }
@@ -86,7 +94,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                     }
 
                     override fun onSubscribe(d: Disposable?) {
-                        Log.d("My_tag ", "disposable provided")
+                     //   Log.d("My_tag ", "disposable provided")
                     }
                 })
         )
@@ -119,7 +127,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                     }
 
                     override fun onSubscribe(d: Disposable?) {
-                        Log.d("My_tag ", "disposable provided")
+                     //   Log.d("My_tag ", "disposable provided")
                     }
 
                 })
